@@ -56,14 +56,14 @@ Briefly describe your project, its purpose, and key features.
 7.Default Admin and User: 
 
     Admin 
-        name : Jenny@gmail.com; 
-        password: A0601221a_;
+        name : admin@gmail.com; 
+        password: Admin1234?;
     Manager 
-        name : Coma@gmail.com; 
-        password: B0601221b_;
+        name : manager@gmail.com; 
+        password: Manager1234?;
     User 
-        name : Vin@gmail.com;
-        password: C0601221c_;
+        name : user@gmail.com;
+        password: User1234?;
 
   
 
