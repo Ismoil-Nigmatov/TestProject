@@ -54,6 +54,27 @@ namespace TestProject.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AuditLogs",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    UserId = table.Column<string>(type: "text", nullable: true),
+                    UserName = table.Column<string>(type: "text", nullable: true),
+                    Type = table.Column<string>(type: "text", nullable: true),
+                    TableName = table.Column<string>(type: "text", nullable: true),
+                    DateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    OldValues = table.Column<string>(type: "text", nullable: true),
+                    NewValues = table.Column<string>(type: "text", nullable: true),
+                    AffectedColumns = table.Column<string>(type: "text", nullable: true),
+                    PrimaryKey = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AuditLogs", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Tasks",
                 columns: table => new
                 {
@@ -180,9 +201,9 @@ namespace TestProject.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "3bf55fcc-66d1-4790-a76c-996a96dc7c07", null, "USER", "USER" },
-                    { "567b5d52-7251-4443-a77b-790af278bde4", null, "ADMIN", "ADMIN" },
-                    { "afcb304b-5c7f-4f4b-96bb-5b6f19fced8f", null, "MANAGER", "MANAGER" }
+                    { "0bb2cab1-d291-43b8-861c-b63bb6fac7d6", null, "MANAGER", "MANAGER" },
+                    { "9ba5cc7d-9572-480c-a91d-544401f6b0ac", null, "ADMIN", "ADMIN" },
+                    { "a70c2bdf-8581-4717-b595-170fd97e9c99", null, "USER", "USER" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -240,6 +261,9 @@ namespace TestProject.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "AuditLogs");
 
             migrationBuilder.DropTable(
                 name: "Tasks");

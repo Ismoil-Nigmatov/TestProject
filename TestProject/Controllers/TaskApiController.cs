@@ -24,39 +24,48 @@ public class TaskApiController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> Index() => Ok(await _taskRepository.GetAll());
 
+    [HttpGet("id")]
+    public async Task<IActionResult> Index(int id) => Ok(await _taskRepository.Get(id));
+
     [HttpPost]
     public async Task<IActionResult> Create(TaskViewModel task)
     {
         task.DueDate = DateTime.SpecifyKind(task.DueDate, DateTimeKind.Utc);
 
-        DateTime thresholdDate = new DateTime(2030, 1, 1);
         DateTime now = DateTime.Now;
-        if (task.DueDate > thresholdDate)
-        {
-            throw new Exception("please enter again date");
-        }
-
         if (task.DueDate < now)
         {
-            throw new Exception("please enter again date");
+            throw new BadHttpRequestException("Date must not be before today");
         }
-        await _taskRepository.Add(task);
+        var userId = _userManager.GetUserId(User);
+        var user = await _userManager.GetUserAsync(User);
+        var username = user!.UserName;
+        await _taskRepository.Add(task, userId!, username!);
         return Ok();
     }
 
     [HttpPut]
     public async Task<IActionResult> Edit(int id, TaskViewModel task)
     {
-        await _taskRepository.Update(id, task);
+        DateTime now = DateTime.Now;
+        if (task.DueDate < now)
+        {
+            throw new Exception("Date must not be before today");
+        }
+        var userId = _userManager.GetUserId(User);
+        var user = await _userManager.GetUserAsync(User);
+        var username = user!.UserName;
+        await _taskRepository.Update(id, task, userId!, username!);
         return Ok();
     }
-
-
 
     [HttpDelete]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
-        await _taskRepository.Delete(id);
+        var userId = _userManager.GetUserId(User);
+        var user = await _userManager.GetUserAsync(User);
+        var username = user!.UserName;
+        await _taskRepository.Delete(id, userId!, username!);
         return Ok();
     }
 }
