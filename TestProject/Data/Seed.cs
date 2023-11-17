@@ -63,9 +63,9 @@ namespace TestProject.Data
         /// <param name="userManager">User manager for managing identity users.</param>
         private static async Task SeedUsersAsync(UserManager<User> userManager)
         {
-            await CreateUserAsync(userManager, "Jenny@gmail.com", "Jenny", "A0601221a_", ERole.Admin);
-            await CreateUserAsync(userManager, "Coma@gmail.com", "Coma", "B0601221b_", ERole.Manager);
-            await CreateUserAsync(userManager, "Vin@gmail.com", "Vin", "C0601221c_", ERole.User);
+            await CreateUserAsync(userManager, "admin@gmail.com", "Admin", "Admin1234?", ERole.Admin);
+            await CreateUserAsync(userManager, "manager@gmail.com", "Manager", "Manager1234?", ERole.Manager);
+            await CreateUserAsync(userManager, "user@gmail.com", "User", "User1234?", ERole.User);
         }
         /// <summary>
         /// Creates a user if it does not exist and adds them to a specified role.

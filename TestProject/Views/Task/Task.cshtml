@@ -20,6 +20,12 @@
             </div>
             
         }
+        @if (User.Identity != null && User.Identity.IsAuthenticated && User.IsInRole("ADMIN"))
+        {
+            <div style="margin:10px">
+                <a style="padding:8px 50px; text-decoration:none" class="bg-warning text-white" asp-action="Index" asp-controller="Audit">Audit</a>
+            </div>
+        }
         
         <div style="margin:10px">
             <a style="padding:8px 50px; text-decoration:none" class="bg-warning text-white" asp-action="LogOut" asp-controller="Account">Log Out</a>

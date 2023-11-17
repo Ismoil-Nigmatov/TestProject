@@ -11,9 +11,10 @@ namespace TestProject.Controllers
         private readonly ITaskRepository _taskRepository;
         private readonly UserManager<User> _userManager;
 
-        public TaskController(ITaskRepository taskRepository)
+        public TaskController(ITaskRepository taskRepository, UserManager<User> userManager)
         {
             _taskRepository = taskRepository;
+            _userManager = userManager;
         }
 
         public async Task<ViewResult> Index()
@@ -27,8 +28,8 @@ namespace TestProject.Controllers
         {
             var userId = _userManager.GetUserId(User);
             var user = await _userManager.GetUserAsync(User);
-            var username = user.UserName;
-            await _taskRepository.Add(taskViewModel, userId, username);
+            var username = user!.UserName;
+            await _taskRepository.Add(taskViewModel, userId!, username!);
             var tasks = await _taskRepository.GetAll();
             return View("Task", tasks);
         }
@@ -38,8 +39,8 @@ namespace TestProject.Controllers
         {
             var userId = _userManager.GetUserId(User);
             var user = await _userManager.GetUserAsync(User);
-            var username = user.UserName;
-            await _taskRepository.Update(id, taskViewModel, userId, username);
+            var username = user!.UserName;
+            await _taskRepository.Update(id, taskViewModel, userId!, username!);
             var tasks = await _taskRepository.GetAll();
             return View("Task", tasks);
         }
@@ -49,8 +50,8 @@ namespace TestProject.Controllers
         {
             var userId = _userManager.GetUserId(User);
             var user = await _userManager.GetUserAsync(User);
-            var username = user.UserName;
-            await _taskRepository.Delete(id, userId, username);
+            var username = user!.UserName;
+            await _taskRepository.Delete(id, userId!, username!);
             var tasks = await _taskRepository.GetAll();
             return View("Task", tasks);
         }

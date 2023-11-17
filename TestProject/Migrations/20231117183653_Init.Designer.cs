@@ -12,7 +12,7 @@ using TestProject.Data;
 namespace TestProject.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231117152819_Init")]
+    [Migration("20231117183653_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -53,19 +53,19 @@ namespace TestProject.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "567b5d52-7251-4443-a77b-790af278bde4",
+                            Id = "9ba5cc7d-9572-480c-a91d-544401f6b0ac",
                             Name = "ADMIN",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "afcb304b-5c7f-4f4b-96bb-5b6f19fced8f",
+                            Id = "0bb2cab1-d291-43b8-861c-b63bb6fac7d6",
                             Name = "MANAGER",
                             NormalizedName = "MANAGER"
                         },
                         new
                         {
-                            Id = "3bf55fcc-66d1-4790-a76c-996a96dc7c07",
+                            Id = "a70c2bdf-8581-4717-b595-170fd97e9c99",
                             Name = "USER",
                             NormalizedName = "USER"
                         });
@@ -175,6 +175,46 @@ namespace TestProject.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("TestProject.Entity.Audit", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AffectedColumns")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("NewValues")
+                        .HasColumnType("text");
+
+                    b.Property<string>("OldValues")
+                        .HasColumnType("text");
+
+                    b.Property<string>("PrimaryKey")
+                        .HasColumnType("text");
+
+                    b.Property<string>("TableName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("text");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("text");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AuditLogs");
                 });
 
             modelBuilder.Entity("TestProject.Entity.Task", b =>
