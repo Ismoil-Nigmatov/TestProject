@@ -1,8 +1,6 @@
-`# Project Name
-
+`# To Do List
 ## Description
 
-Briefly describe your project, its purpose, and key features.
 
 ## Prerequisites
 
@@ -15,16 +13,16 @@ Briefly describe your project, its purpose, and key features.
 
 1. Clone the repository:
 
-        git clone https://github.com/your-username/your-project.git
+        git clone https://github.com/Ismoil-Nigmatov/TestProject.git
     
 
 2. Navigate to the project folder:
 
-        cd your-project
+        cd project
     
 3. Write Terminal this key words :
         dotnet build
-    dotnet restore
+   dotnet restore
       
 4. Database Setup:
 
