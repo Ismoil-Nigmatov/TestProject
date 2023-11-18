@@ -23,6 +23,9 @@
         @if (User.Identity != null && User.Identity.IsAuthenticated && User.IsInRole("ADMIN"))
         {
             <div style="margin:10px">
+                <a style="padding:8px 50px; text-decoration:none" class="bg-warning text-white" asp-action="AddUserIndex" asp-controller="Account">Add User</a>
+            </div>
+            <div style="margin:10px">
                 <a style="padding:8px 50px; text-decoration:none" class="bg-warning text-white" asp-action="Index" asp-controller="Audit">Audit</a>
             </div>
         }
@@ -33,23 +36,23 @@
     </div>
     <div class="task-table">
         @(
-            Html.Grid(Model).Build(columns =>
+        Html.Grid(Model).Build(columns =>
+        {
+            columns.Add(model => model.Id).Titled("Id").Filterable(false).Sortable(false);
+            columns.Add(model => model.Title).Titled("Title").Filterable(false).Sortable(false);
+            columns.Add(model => model.Description).Titled("Description").Filterable(false).Sortable(false);
+            columns.Add(model => model.DueDate).Titled("DueDate").Filterable(false).Sortable(false);
+            columns.Add(model => model.Status).Titled("Status").Filterable(false).Sortable(false);
+            if (User.Identity != null && User.Identity.IsAuthenticated && User.IsInRole("ADMIN"))
             {
-                columns.Add(model => model.Id).Titled("Id").Filterable(false).Sortable(false);
-                columns.Add(model => model.Title).Titled("Title").Filterable(false).Sortable(false);
-                columns.Add(model => model.Description).Titled("Description").Filterable(false).Sortable(false);
-                columns.Add(model => model.DueDate).Titled("DueDate").Filterable(false).Sortable(false);
-                columns.Add(model => model.Status).Titled("Status").Filterable(false).Sortable(false);
-                if(User.Identity != null && User.Identity.IsAuthenticated && User.IsInRole("ADMIN"))
+                columns.Add().Titled("Actions").RenderedAs(model =>
                 {
-                    columns.Add().Titled("Actions").RenderedAs(model =>
-                    {
-                        return $@"
+                    return $@"
                             <button type='button' class='btn btn-primary bg-warning' onclick='updateForm({model.Id})'>Update</button>
                             <button type='button' class='btn btn-primary bg-danger' onclick='deleteForm({model.Id})'>Delete</button>";
-                    }).Encoded(false);
-                }
-            })
+                }).Encoded(false);
+            }
+        }).Sortable().Pageable()
         )
     </div>
 
@@ -137,7 +140,7 @@
             document.getElementById('titleUpdate').value = foundTask.title;
             document.getElementById('updateId').value = foundTask.id;
             document.getElementById('descriptionUpdate').value = foundTask.description;
-            form.classList.add('active');
+            form.classList.add('openModal');
         }
     }
 </script>

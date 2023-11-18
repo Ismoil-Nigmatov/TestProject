@@ -41,7 +41,7 @@ button {
 }
 
 
-.active {
+.openModal {
     height: 500px !important;
     opacity: 1 !important;
     width: 600px;
@@ -64,17 +64,17 @@ button {
     right: 0;
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.5);
-    z-index:2;
+    z-index: 2;
 }
 
-.modal-body{
-    display:flex;
-    flex-direction:column;
-    gap:5px;
+.modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 
-.moda-footer{
-    margin-top:8%;
+.moda-footer {
+    margin-top: 8%;
 }
 
 #modalDelete {

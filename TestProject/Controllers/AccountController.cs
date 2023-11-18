@@ -55,7 +55,7 @@ namespace TestProject.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(RegistrationViewModel model, string role)
+        public async Task<IActionResult> Register(RegistrationViewModel model)
         {
             var validationError = _accountService.HandleModelStateErrors(ModelState, "Please enter valid data.");
                 if (validationError != "success")
@@ -77,6 +77,37 @@ namespace TestProject.Controllers
                 ViewBag.Success = "Registration successful! You will be redirected to the login page in 3 seconds.";
 
                 return View("Registration");
+        }
+
+        [HttpGet]
+        public IActionResult AddUserIndex()
+        {
+            return View("AddUser");
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> AddUser(RegistrationViewModel model, string role)
+        {
+            var validationError = _accountService.HandleModelStateErrors(ModelState, "Please enter valid data.");
+            if (validationError != "success")
+            {
+                TempData["Error"] = validationError;
+                return View("AddUser");
+            }
+
+            var isAuthenticated = await _accountService.CheckUser(model.Email);
+
+            if (isAuthenticated)
+            {
+                TempData["Error"] = "User with this email already exists";
+                return View("AddUser");
+            }
+            await _accountService.AddUser(model, role);
+
+            ViewBag.Success = "Registration successful! You will be redirected to the task page in 3 seconds.";
+
+            return View("AddUser");
         }
 
         [HttpGet]
