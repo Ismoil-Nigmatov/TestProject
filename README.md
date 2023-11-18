@@ -68,11 +68,3 @@
 ## Contributing
 
 If you would like to contribute to the project, please follow the [contribution guidelines](CONTRIBUTING.md).
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
-
-## Acknowledgments
-
-Mention any libraries, tools, or people you want to give credit to.`
