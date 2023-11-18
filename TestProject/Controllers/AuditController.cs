@@ -17,5 +17,16 @@ namespace TestProject.Controllers
             var auditLogs = await _auditService.GetAuditLogs();
             return View("Audit", auditLogs);
         }
+
+        [HttpPost]
+        public async Task<ViewResult> FilterAuditLog(DateTime? startDate, DateTime? endDate)
+        {
+            startDate ??= DateTime.MinValue;
+            endDate ??= DateTime.MaxValue;
+
+            var filteredAuditLogs = await _auditService.Filter(startDate, endDate);
+
+            return View("Audit", filteredAuditLogs);
+        }
     }
 }
